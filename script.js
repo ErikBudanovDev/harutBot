@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const puppeteer = require("puppeteer");
+const { execSync } = require("child_process");
+
 const fs = require("fs");
 
 const app = express();
@@ -22,14 +24,22 @@ function extractJobManagerLink(htmlContent) {
 // Function to open the link in Puppeteer and click the "Accept" button
 async function findAndClickButton(url) {
   try {
-    const defaultPath = "/opt/render/.cache/puppeteer/chrome/linux-132.0.6834.83/chrome-linux64/chrome";
-    let chromePath = defaultPath;
+   const chromePath = "/opt/render/.cache/puppeteer/chrome/linux-132.0.6834.83/chrome-linux64/chrome";
 
-    // Verify if Chrome exists at the path
+    // Install Chrome if it's missing
     if (!fs.existsSync(chromePath)) {
-        console.error("❌ Chrome executable not found at:", chromePath);
+        console.log("⚠️ Chrome not found! Installing...");
+        execSync("npx puppeteer browsers install chrome", { stdio: "inherit" });
+    }
+
+    // Re-check if Chrome exists after installation
+    if (!fs.existsSync(chromePath)) {
+        console.error("❌ Chrome installation failed.");
         process.exit(1);
     }
+
+    console.log("✅ Chrome found at:", chromePath);
+    
     const browser = await puppeteer.launch({
         executablePath: "/opt/render/.cache/puppeteer/chrome/linux-132.0.6834.83/chrome-linux64/chrome",
         headless: "new",
