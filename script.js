@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const puppeteer = require("puppeteer");
+const fs = require("fs");
 
 const app = express();
 const port = 3030;
@@ -21,6 +22,14 @@ function extractJobManagerLink(htmlContent) {
 // Function to open the link in Puppeteer and click the "Accept" button
 async function findAndClickButton(url) {
   try {
+    const defaultPath = "/opt/render/.cache/puppeteer/chrome/linux-132.0.6834.83/chrome-linux64/chrome";
+    let chromePath = defaultPath;
+
+    // Verify if Chrome exists at the path
+    if (!fs.existsSync(chromePath)) {
+        console.error("❌ Chrome executable not found at:", chromePath);
+        process.exit(1);
+    }
     const browser = await puppeteer.launch({
         executablePath: "/opt/render/.cache/puppeteer/chrome/linux-132.0.6834.83/chrome-linux64/chrome",
         headless: "new",
