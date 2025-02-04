@@ -22,7 +22,8 @@ function extractJobManagerLink(htmlContent) {
 async function findAndClickButton(url) {
   try {
     const browser = await puppeteer.launch({
-        headless: true,
+        executablePath: "/opt/render/.cache/puppeteer/chrome/linux-132.0.6834.83/chrome-linux64/chrome",
+        headless: "new",
         args: ["--no-sandbox", "--disable-setuid-sandbox"]
     });
     const page = await browser.newPage();
