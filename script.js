@@ -47,12 +47,12 @@ async function findAndClickButton(url) {
     });
     const page = await browser.newPage();
 
-    await page.goto(url, { waitUntil: "domcontentloaded" });
+   await page.goto(url, { waitUntil: "networkidle0" });
 
     console.log("Page loaded successfully.");
 
-    await page.waitForSelector("button", { timeout: 5000 });
-
+await page.waitForSelector("button", { visible: true, timeout: 7000 });
+    
     const buttonClicked = await page.evaluate(() => {
       const buttons = Array.from(document.querySelectorAll("button"));
       const acceptButton = buttons.find((btn) => btn.textContent.includes("Accept"));
