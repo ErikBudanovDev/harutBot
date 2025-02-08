@@ -38,10 +38,18 @@ async function findAndClickButton(url) {
     console.log("✅ Chrome found at:", chromePath);
 
     const browser = await puppeteer.launch({
-      executablePath: chromePath,
-      headless: false, // Set to false for debugging
-      args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
-    });
+  executablePath: chromePath,
+  headless: "new", // Run in headless mode (use "new" for better stability)
+  args: [
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--disable-dev-shm-usage",
+    "--disable-gpu",
+    "--disable-software-rasterizer",
+    "--disable-features=VizDisplayCompositor",
+    "--disable-features=IsolateOrigins,site-per-process"
+  ]
+});
 
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
