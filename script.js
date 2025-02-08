@@ -26,7 +26,7 @@ async function findAndClickButton(url) {
 
     // Install Chrome if it's missing
     if (!fs.existsSync(chromePath)) {
-      console.log("⚠️ Chrome not found! Installing...");
+      console.log("⚠️ Chrome not found! Installing..");
       execSync("npx puppeteer browsers install chrome", { stdio: "inherit" });
     }
 
