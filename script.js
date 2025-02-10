@@ -60,7 +60,7 @@ async function findAndClickButton(url) {
     console.log("✅ Page loaded successfully.");
 
     // Wait for Angular SPA rendering completion
-    await page.waitForFunction(() => window.getAllAngularTestabilities && window.getAllAngularTestabilities().every(t => t.isStable), { timeout: 30000 });
+    await page.waitForFunction(() => window.getAllAngularTestabilities && window.getAllAngularTestabilities().every(t => t.isStable), { timeout: 60000 });
 
     // Take a screenshot for debugging
     await page.screenshot({ path: "debug.png", fullPage: true });
