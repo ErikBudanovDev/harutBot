@@ -87,15 +87,16 @@ async function findAndClickButton(url) {
         await page.waitForSelector("button", { timeout: 5000 });
 
         const buttonClicked = await page.evaluate(() => {
-            const buttons = Array.from(document.querySelectorAll("button"));
-            const acceptButton = buttons.find((btn) => btn.textContent.includes("Register"));
-
-            if (acceptButton) {
-                acceptButton.click();
-                return true;
-            }
-            return false;
-        });
+          const elements = Array.from(document.querySelectorAll("*")); // Select all elements
+          
+          const acceptElement = elements.find(el => el.textContent.trim().includes("Accept") && el.click);
+      
+          if (acceptElement) {
+              acceptElement.click();
+              return true;
+          }
+          return false;
+      });
 
         if (buttonClicked) {
             console.log("✅ Accept button clicked successfully.");
