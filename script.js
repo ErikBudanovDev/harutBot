@@ -55,7 +55,8 @@ async function findAndClickButton(url) {
     await page.setDefaultNavigationTimeout(0);
 
     // Load the page and wait for all network requests to finish
-    await page.goto(url, { waitUntil: "networkidle2", timeout: 5000 });
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
+    // await page.goto(url, { waitUntil: "networkidle2", timeout: 5000 });
     console.log("✅ Page loaded successfully.");
 
     // Wait for Angular SPA rendering completion
