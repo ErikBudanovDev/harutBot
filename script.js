@@ -60,13 +60,13 @@ async function findAndClickButton(url) {
     console.log("✅ Page loaded successfully.");
 
     // Wait for Angular SPA rendering completion
-    await page.waitForFunction(() => window.getAllAngularTestabilities && window.getAllAngularTestabilities().every(t => t.isStable), { timeout: 10000 });
+    await page.waitForFunction(() => window.getAllAngularTestabilities && window.getAllAngularTestabilities().every(t => t.isStable), { timeout: 30000 });
 
     // Take a screenshot for debugging
     await page.screenshot({ path: "debug.png", fullPage: true });
 
     // Wait for button to appear
-    await page.waitForSelector("button", { visible: true, timeout: 15000 });
+    await page.waitForSelector("button", { visible: true, timeout: 30000 });
 
     // Try clicking within an iframe first
     const frames = await page.frames();
