@@ -88,7 +88,7 @@ async function findAndClickButton(url) {
 
         const buttonClicked = await page.evaluate(() => {
             const buttons = Array.from(document.querySelectorAll("button"));
-            const acceptButton = buttons.find((btn) => btn.textContent.includes("Accept"));
+            const acceptButton = buttons.find((btn) => btn.textContent.includes("Register"));
 
             if (acceptButton) {
                 acceptButton.click();
